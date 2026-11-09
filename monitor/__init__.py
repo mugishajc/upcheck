@@ -15,7 +15,10 @@ def create_app(config: type[Config] | None = None) -> Flask:
     with app.app_context():
         db.create_all()
 
+    from .api import bp as api_bp
     from .cli import register_cli
+
+    app.register_blueprint(api_bp)
 
     register_cli(app)
 
