@@ -89,6 +89,15 @@ def register_cli(app: Flask) -> None:
             latency = f"{result.latency_ms} ms" if result.latency_ms is not None else "-"
             click.echo(f"{site.name}: {'UP' if result.is_up else 'DOWN'} ({detail}, {latency})")
 
+    @app.cli.command("watch")
+    def watch():
+        """Keep checking sites on their intervals until interrupted."""
+        from .scheduler import run_blocking
+
+        tick = app.config["SCHEDULER_TICK_SECONDS"]
+        click.echo(f"Watching sites (tick every {tick}s). Ctrl+C to stop.")
+        run_blocking(app)
+
     @app.cli.command("prune")
     @click.option("--days", default=30, show_default=True, help="Keep this many days of history.")
     def prune(days):

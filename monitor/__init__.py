@@ -19,6 +19,11 @@ def create_app(config: type[Config] | None = None) -> Flask:
 
     register_cli(app)
 
+    if app.config.get("RUN_SCHEDULER"):
+        from .scheduler import start_background
+
+        app.extensions["monitor_scheduler"] = start_background(app)
+
     @app.get("/health")
     def health():
         return {"status": "ok"}
