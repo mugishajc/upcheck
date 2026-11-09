@@ -15,6 +15,10 @@ def create_app(config: type[Config] | None = None) -> Flask:
     with app.app_context():
         db.create_all()
 
+    from .cli import register_cli
+
+    register_cli(app)
+
     @app.get("/health")
     def health():
         return {"status": "ok"}

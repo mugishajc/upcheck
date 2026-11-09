@@ -1,0 +1,4 @@
+# One site per line: either a bare URL, or a name followed by the URL.
+https://example.com
+Python docs https://docs.python.org/3/
+GitHub status https://www.githubstatus.com
