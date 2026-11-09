@@ -10,6 +10,11 @@ def create_app(config: type[Config] | None = None) -> Flask:
 
     db.init_app(app)
 
+    from . import models  # noqa: F401  (register tables)
+
+    with app.app_context():
+        db.create_all()
+
     @app.get("/health")
     def health():
         return {"status": "ok"}
