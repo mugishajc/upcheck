@@ -142,5 +142,5 @@ def dispatch(event: AlertEvent, notifiers: list[Notifier]) -> None:
     for notifier in notifiers:
         try:
             notifier.notify(event)
-        except Exception:  # noqa: BLE001
+        except Exception:
             log.exception("alert channel %s failed", type(notifier).__name__)
